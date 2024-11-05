@@ -1,0 +1,16 @@
+.containerModulo{
+    padding-top: 20px;
+    padding-bottom: 20px;
+    box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.75);
+}
+
+.linkModule{
+    text-decoration: none;
+    transition: 300ms ease-in-out;
+    color: black;
+}
+
+.linkModule:hover{
+    transform: scale(1.10, 1.10);
+    color: darkturquoise;
+}

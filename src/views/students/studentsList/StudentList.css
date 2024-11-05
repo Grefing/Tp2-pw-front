@@ -1,0 +1,46 @@
+.addLinkContainer{
+    box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.75);
+    background-color: darkturquoise;
+    color: white;
+    padding: 7px;
+    border-radius: 10px;
+}
+
+.addLink{
+    text-decoration: none;
+    color: white;
+}
+
+.inputContainer{
+    margin-bottom: 5px;
+}
+
+.inputSearch{
+    background-color: transparent;
+}
+
+.btnSearch{
+    border: none;
+    background-color: #ff5e00;
+    border-radius: 10px;
+    color: white;
+    padding: 1.2vh;
+    transition: 300ms ease;
+} 
+
+.btnSearch:hover{
+    background-color: transparent;
+    transform: scale(1.05, 1.05);
+}
+
+.table{
+    border: 1px solid white;
+    border-collapse: collapse;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.75);
+}
+
+.pagination{
+    margin-top: 5px;
+}

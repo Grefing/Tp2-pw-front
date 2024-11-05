@@ -1,0 +1,30 @@
+.backLinkContainer{
+    background-color: red;
+    color: white;
+    border-radius: 10px;
+    padding: 7px;
+}
+
+
+.backLink{
+    text-decoration: none;
+    color: white;
+}
+
+.formContainer{
+    padding: 10px;
+    box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.75);
+}
+
+.inputForm{
+    width: 50%;
+}
+
+.sendBtn{
+    border: none;
+    background-color: darkturquoise;
+    border-radius: 10px;
+    color: white;
+    padding: 7px;
+    border: 1px solid black;
+}
