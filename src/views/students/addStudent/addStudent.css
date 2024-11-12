@@ -3,11 +3,13 @@
     color: white;
     border-radius: 10px;
     padding: 7px;
+    border: 1px solid black;
 }
 
 
 .backLink{
-    text-decoration: none;
+    border: none;
+    background-color: transparent;
     color: white;
 }
 

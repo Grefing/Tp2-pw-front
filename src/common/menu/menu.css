@@ -7,7 +7,7 @@
 }
 
 .tpTitle{
-    color: white;
+    color: black;
 }
 
 .title{
@@ -16,13 +16,28 @@
     padding-right: 20px;
 }
 
-.selectLink{
-    text-decoration: none;
-    color: white;
+.linksContainer a{
+    text-decoration: none; 
 }
 
-.selectLink:hover{
-    color: darkturquoise;
+.menu-selected{
+    background-color: white;
+    color: black ;
+    cursor: pointer;
+    padding-left: 10px;
+    font-weight: 700;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+
+}
+
+.menu-unselected{
+    color: black;
+    font-weight: 700;
+}
+
+.containerLink{
+    text-decoration: none;
 }
 
 .containerLink{
@@ -32,20 +47,9 @@
 
 .containerLink:hover{
     cursor: pointer;
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.589);
     padding-left: 10px;
     font-weight: 700;
-}
-
-.active {
-    background-color: white;
-    color: darkturquoise;
-}
-
-.activeLink{
-    background-color: transparent;
-    color: darkturquoise;
-    cursor: pointer;
-    padding-left: 10px;
-    font-weight: 700;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
 }

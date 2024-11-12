@@ -4,52 +4,71 @@ import './StudentList.css';
 import { Link } from 'react-router-dom';
 
 const StudentList = () => {
-  const [studentList, setStudentList] = useState(JSON.parse(localStorage.getItem("alumnos")) || []);
+  const [studentList, setStudentList] = useState([]);
   const [searchText, setSearchText] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(3);
-
-  console.log(studentList);
-  
+  const [totalStudents, setTotalStudents] = useState(0);
 
   useEffect(() => {
-    localStorage.setItem("alumnos", JSON.stringify(studentList));
-  }, [studentList]);
+    const fetchData = async () => {
+      const dataStudents = await fetchStudents(searchText, currentPage, itemsPerPage);
+      setStudentList(dataStudents.rows); 
+      setTotalStudents(dataStudents.count); 
+    };
+    
+    fetchData();     
+  }, [searchText, currentPage, itemsPerPage]);
+
+  const fetchStudents = async (search = '', currentPage = 1, pageSize = 5) => {
+    try {
+        const response = await fetch(`/api/students?search=${search}&currentPage=${currentPage}&pageSize=${pageSize}`);
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error fetching students:', error);
+    }
+  };
 
   const captureData = (e) => {
     setSearchText(e.target.value.toLowerCase());
+    setCurrentPage(1); 
   };
 
-  const filteredStudents = studentList.filter((student) =>
-    student.lastName.toLowerCase().includes(searchText)
-  );
-
-  const deleteStudent = (index) => {
+  const deleteStudent = async (id) => {
     Swal.fire({
-      title: `Está seguro que desea eliminar el alumno?`,
-      text: "Esta accion no es reversible!",
+      title: `¿Está seguro que desea eliminar al alumno?`,
+      text: "¡Esta acción no es reversible!",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Sí, eliminar!",
-    }).then((result) => {
+    }).then(async (result) => {
       if (result.isConfirmed) {
-        Swal.fire({
-          title: "Alumno eliminado!",
-          text: "El alumno fue eliminado con éxito.",
-          icon: "success",
-        });
-        const updatedList = studentList.filter((_, i) => i !== index);
-        setStudentList(updatedList);
+        try {
+          const response = await fetch(`/api/students/delete/${id}`, { method: 'PUT' }); 
+          if (response.ok) {
+            Swal.fire({
+              title: "¡Alumno eliminado!",
+              text: "El alumno fue eliminado lógicamente con éxito.",
+              icon: "success",
+            });
+            setStudentList(studentList.filter((student) => student.id !== id));
+            console.log(studentList.filter((student) => student.id !== id));
+            
+          } else {
+            Swal.fire("Error", "No se pudo eliminar el alumno", "error");
+          }
+        } catch (error) {
+          console.error("Error al eliminar el alumno:", error);
+          Swal.fire("Error", "Ocurrió un error al intentar eliminar el alumno", "error");
+        }
       }
     });
   };
-
-  const start = (currentPage - 1) * itemsPerPage;
-  const end = start + itemsPerPage;
-  const studentsToShow = filteredStudents.slice(start, end);
-
+  
+  
   const updateItemsPerPage = (e) => {
     setItemsPerPage(parseInt(e.target.value, 10));
     setCurrentPage(1);
@@ -62,12 +81,12 @@ const StudentList = () => {
   };
 
   const goToNextPage = () => {
-    if (currentPage * itemsPerPage < filteredStudents.length) {
+    if (currentPage * itemsPerPage < totalStudents) {
       setCurrentPage(currentPage + 1);
     }
   };
 
-  const totalPages = Math.ceil(filteredStudents.length / itemsPerPage);
+  const totalPages = Math.ceil(totalStudents / itemsPerPage);
 
   return (
     <div className="pageContent">
@@ -97,22 +116,22 @@ const StudentList = () => {
               <tr>
                 <th scope="col">Nombre</th>
                 <th scope="col">Apellido</th>
-                <th scope="col">Legajo</th>
-                <th scope="col"></th>
+                <th scope="col">DNI</th>
+                <th scope="col">Acciones</th>
               </tr>
             </thead>
             <tbody>
-              {studentsToShow.map((student, index) => (
+              {studentList.map((student, index) => (
                 <tr key={index}>
-                  <td>{student.name}</td>
-                  <td>{student.lastName}</td>
-                  <td>{student.file}</td>
+                  <td>{student.firstname}</td>
+                  <td>{student.lastname}</td>
+                  <td>{student.dni}</td>
                   <td>
                     <button
-                      className="btn btn-danger"
-                      onClick={() => deleteStudent(index + start)}
+                      className="btnDelete"
+                      onClick={() => deleteStudent(student.id)}
                     >
-                      <i className="bi bi-x-lg"></i>
+                      <i className="bi bi-x-lg">Borrar</i>
                     </button>
                   </td>
                 </tr>
@@ -133,7 +152,7 @@ const StudentList = () => {
         </div>
         <div className="mx-2">
           <button onClick={goToPrevPage} disabled={currentPage === 1}>«</button>
-          <span>{currentPage}</span>
+          <span>{currentPage} de {totalPages}</span>
           <button onClick={goToNextPage} disabled={currentPage === totalPages}>»</button>
         </div>
       </div>

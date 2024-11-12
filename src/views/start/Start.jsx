@@ -1,10 +1,16 @@
-import { Link } from "react-router-dom";
+
+import { useNavigate } from "react-router-dom";
 import "./strart.css";
 
+
 const Start = () => {
+  const navigate = useNavigate();
+
+  const handleClickGoToPage = () => {
+    navigate('/students?')
+  };
 
   return (
-    <>
       <div className="pageContent">
         <div className="my-3">
           <h2 className="title">Página principal</h2>
@@ -12,13 +18,12 @@ const Start = () => {
 
         <div className="containerModulo d-flex justify-content-center mx-5 my-4">
           <h1>
-            <Link to={"/students-list"} className="linkModule text-center">
+            <button onClick={handleClickGoToPage} className="linkModule text-center">
               Módulo Alumnos
-            </Link>
+            </button>
           </h1>
         </div>
-      </div>
-    </>
+      </div>  
   );
 };
 

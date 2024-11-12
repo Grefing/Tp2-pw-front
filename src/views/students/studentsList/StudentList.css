@@ -17,6 +17,7 @@
 
 .inputSearch{
     background-color: transparent;
+    margin-bottom: 5px;
 }
 
 .btnSearch{
@@ -43,4 +44,12 @@
 
 .pagination{
     margin-top: 5px;
+}
+
+.btnDelete{
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: red;
+    color: white;
+    padding: 5px;
 }
