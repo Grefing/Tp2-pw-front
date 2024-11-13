@@ -20,20 +20,6 @@
     margin-bottom: 5px;
 }
 
-.btnSearch{
-    border: none;
-    background-color: #ff5e00;
-    border-radius: 10px;
-    color: white;
-    padding: 1.2vh;
-    transition: 300ms ease;
-} 
-
-.btnSearch:hover{
-    background-color: transparent;
-    transform: scale(1.05, 1.05);
-}
-
 .table{
     border: 1px solid white;
     border-collapse: collapse;
@@ -44,6 +30,23 @@
 
 .pagination{
     margin-top: 5px;
+}
+
+.btnSearch{
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: darkturquoise;
+    color: white;
+    margin-bottom: 5px;
+}
+
+
+.btnRestart{
+    margin-bottom: 5px;
+    border: none;
+    background-color: transparent;
+    color: darkturquoise;
+    font-size: 3vh;
 }
 
 .btnDelete{

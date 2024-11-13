@@ -38,6 +38,7 @@ const AddStudent = () => {
           timer: 1500
         });
         reset(); 
+        navigate('/students')
       } else {
         Swal.fire({
           icon: "error",
