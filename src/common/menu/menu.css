@@ -53,3 +53,10 @@
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
 }
+
+.btnCloseSesion{
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: red;
+    color: white;
+}
