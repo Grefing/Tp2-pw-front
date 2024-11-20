@@ -22,6 +22,7 @@ const StudentList = () => {
   useEffect(() => {
     fetchData();         
   }, [searchText, currentPage, itemsPerPage]);
+  
 
   const fetchData = async () => {
     const dataStudents = await fetchStudents(searchText, currentPage, itemsPerPage);

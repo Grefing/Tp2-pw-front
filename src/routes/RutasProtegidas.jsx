@@ -1,14 +1,15 @@
 import { Navigate } from "react-router-dom";
 
+const RutasProtegidas = ({ children }) => {
+  const usuarioLogueado = 
+    JSON.parse(localStorage.getItem("administrator")) && 
+    localStorage.getItem("jwtToken");
 
-const RutasProtegidas = ({children}) => {
-    const usuarioLogueado = JSON.parse(localStorage.getItem('administrator')) || null
+  if (!usuarioLogueado) {
+    return <Navigate to="/login" replace />;
+  }
 
-    if (!usuarioLogueado) {
-        return <Navigate to={'/login'}></Navigate>
-    }else{
-        return children
-    }
+  return children;
 };
 
 export default RutasProtegidas;

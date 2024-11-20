@@ -1,29 +1,57 @@
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import "./menu.css";
 import { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 
 const Menu = () => {
-  const adminLocalStorage = !!JSON.parse(localStorage.getItem("administrator"))
+ 
+  const adminLocalStorage = !!(
+    JSON.parse(localStorage.getItem("administrator")) &&
+    localStorage.getItem("jwtToken")
+  );
   const [adminLogued, setAdminLogued] = useState(adminLocalStorage);
   const navigate = useNavigate();
 
+ 
   useEffect(() => {
-    setAdminLogued(adminLocalStorage)
-  }, [adminLocalStorage])
+    const isAdminLogued = !!(
+      JSON.parse(localStorage.getItem("administrator")) &&
+      localStorage.getItem("jwtToken")
+    );
+    setAdminLogued(isAdminLogued);
+  }, [adminLocalStorage]);
 
   const closeSesion = () => {
-    localStorage.removeItem("administrator");
-    navigate('/login')
-  };
+    Swal.fire({
+      title: "¿Desea cerrar sesión?",
+      text: "Su sesión será cerrada",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Sí, cerrar!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        localStorage.removeItem("administrator");
+        localStorage.removeItem("jwtToken");
+        navigate("/login");
 
+        Swal.fire({
+          title: "Sesión cerrada!",
+          text: "¡Hasta luego!",
+          icon: "success",
+        });
+      }
+    });
+  };
 
   return (
     <section className="d-flex">
       <div className="selectMenu">
         <div className="d-flex justify-content-center">
-          <h3 className="tpTitle">Trabajo Practico 2</h3>
+          <h3 className="tpTitle">Trabajo Práctico 2</h3>
         </div>
-        <div className=" linksContainer d-flex flex-column">
+        <div className="linksContainer d-flex flex-column">
           <div className="d-flex align-self-end containerLink">
             <NavLink
               to={"/"}

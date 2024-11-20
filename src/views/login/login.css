@@ -37,3 +37,7 @@
     color: darkturquoise;
 }
 
+.goBackBtn{
+    font-size: 20px;
+    cursor: pointer;
+}
